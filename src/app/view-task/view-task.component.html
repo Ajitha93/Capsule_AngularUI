@@ -1,0 +1,71 @@
+
+
+<div class="jumbotron">
+
+  <h2>ViewTasks</h2>
+  <br />
+  <form [formGroup]="formGrp" (ngSubmit)="ViewTasks(formGrp.value)">  
+  <div id="searchTask">            
+      <div>
+          <div class="leftalign">
+              <div>
+                  <label>Task:</label>
+                  <input type="text" id="task" name="task" formControlName="Task" />
+                  <div *ngIf="!formGrp.controls['Task'].valid && formGrp.controls['Task'].touched">
+                    <span class="text-danger" *ngIf="formGrp.controls['Task'].errors.required">{{errormsg}}</span>                        
+                </div>
+              </div>
+              <div class="colsplit">
+                  <label>Priority From:</label>
+                  <input type="text" id="priorFrom" name="priorFrom" formControlName="Priority"/>
+                  <label>Priority To:</label>
+                  <input type="text" id="priorTo" name="priorTo" />
+              </div>
+          </div>
+          <div class="rightalign">
+              <div>
+                  <label>Parent Task:</label>
+                  <input type="text" id="parentTask" name="parentTask" formControlName="ParentTask" />
+              </div>
+              <div>
+                  <label>Start Date:</label>
+                  <input type="date" id="startDate" name="startDate" formControlName="StartDate"/>
+                  <label>End Date</label>
+                  <input type="date" id="endDate" name="endDate" formControlName="EndDate" />
+              </div>
+          </div>
+      </div>    
+      <div>
+          <input type="submit" value="Search" />
+      </div>
+      <br />
+  </div>
+</form>
+  <br />
+  <hr class="viewTaskhr" />
+  <div id="viewTask" *ngIf="response?.length>0">
+      <div class="viewtaskrows">
+          <div class="row heading">
+              <div class="col-sm-2">Task</div>
+              <div class="col-sm-2">Parent Task</div>
+              <div class="col-sm-2">Priority</div>
+              <div class="col-sm-2">Start Date</div>
+              <div class="col-sm-2">End Date</div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-1"></div>             
+          </div>         
+          <div class="row" *ngFor="let user of response">
+              <div class="col-sm-2">{{user.Task}}</div>
+              <div class="col-sm-2">{{user.ParentTask}}</div>
+              <div class="col-sm-2">{{user.Priority}}</div>
+              <div class="col-sm-2">{{user.StartDate | date: 'MM/dd/yyyy'}}</div>
+              <div class="col-sm-2">{{user.EndDate | date: 'MM/dd/yyyy'}}</div>
+              <div class="col-sm-1" *ngIf="user.IsActive==true"><button class="ViewTaskButton" (click)="EditTask(user)">Edit</button></div>
+              <div class="col-sm-1" *ngIf="user.IsActive==true"><button class="ViewTaskButton" (click)="DeleteTask(user)">End</button></div>
+          </div>          
+      </div>
+      <hr class="viewrowTaskhr" />     
+  </div>
+  <div id="viewTask" *ngIf="response?.length==0"><span>No data found!!</span></div>
+</div>
+

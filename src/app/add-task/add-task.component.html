@@ -1,0 +1,124 @@
+<div class="jumbotron">
+
+    <h2>{{TaskLabel}} Task</h2>
+
+    <div>       
+        <form name="addForm" [formGroup]="formGrp" (ngSubmit)="AddTask(formGrp.value)">
+            <input type="hidden" id="taskid" name="taskid" formControlName="TaskId"  >
+            <div class="row">
+
+                <div class="col-25">
+
+                    <label for="title">Task:</label>
+
+                </div>               
+
+                <div class="col-75">
+
+                    <input type="text" id="task" name="task" formControlName="Task"  required>
+                    <div *ngIf="!formGrp.controls['Task'].valid && formGrp.controls['Task'].touched">
+                        <span class="text-danger" *ngIf="formGrp.controls['Task'].errors.required">{{errormsg}}</span>                        
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-25">
+
+                    <label for="note">Priority:</label>
+
+                </div>
+
+                <div class="col-75">
+                    <input type="range" min="0" max="30" class="slider" id="priority" name="priority" formControlName="Priority" required>  
+                    <div *ngIf="!formGrp.controls['Priority'].valid && formGrp.controls['Priority'].touched">
+                        <span class="text-danger" *ngIf="formGrp.controls['Priority'].errors.required">{{errormsg}}</span>                        
+                    </div>  
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-25">
+
+                    <label for="cal">Parent Task:</label>
+
+                </div>
+
+                <div class="col-75">
+
+                    <select class="form-control" id="AddParentTask" name="parentTask" formControlName="ParentTaskId">  
+                        <option selected="--Select Task--" value="" class="ng-binding">--Select Task--</option>  
+                        <option [ngValue]="parentTask.ParentTaskId" *ngFor="let parentTask of parentTaskList">  
+                            {{parentTask.ParentTask}}  
+                        </option>  
+                        </select>
+                    <!-- <input type="text" id="parentTask" name="parentTask" formControlName="ParentTaskId"  required> -->
+                     <div *ngIf="!formGrp.controls['ParentTaskId'].valid && formGrp.controls['ParentTaskId'].touched">
+                        <span class="text-danger" *ngIf="formGrp.controls['ParentTaskId'].errors.required">{{errormsg}}</span>                        
+                    </div> 
+
+                  
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-25">
+
+                    <label for="category">Start Date:</label>
+
+                </div>
+
+                <div class="col-75">
+
+                    <input type="date" id="startDate" name="startDate"  formControlName="StartDate" required>
+                    <div *ngIf="!formGrp.controls['StartDate'].valid && formGrp.controls['StartDate'].touched">
+                        <span class="text-danger" *ngIf="formGrp.controls['StartDate'].errors.required">{{errormsg}}</span>                        
+                    </div> 
+
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-25">
+
+                    <label for="category">End Date:</label>
+
+                </div>
+
+                <div class="col-75">
+
+                    <input type="date" id="endDate" name="endDate" formControlName="EndDate" required>
+                    <div *ngIf="!formGrp.controls['EndDate'].valid && formGrp.controls['EndDate'].touched">
+                        <span class="text-danger" *ngIf="formGrp.controls['EndDate'].errors.required">{{errormsg}}</span>                        
+                    </div> 
+
+                </div>
+
+            </div>
+
+            <input type="hidden" id="createdby" name="createdby" formControlName="CreatedBy"  >
+            <input type="hidden" id="createddate" name="createddate" formControlName="CreatedDate"  >
+
+            <div class="row">
+
+                <input type="submit" value="Save" >
+
+                <input type="button" value="Reset" (click)="ResetTask(user)" >
+
+            </div>
+
+        </form>
+
+    </div>
+
+   
+
+</div>
