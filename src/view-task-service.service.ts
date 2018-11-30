@@ -27,7 +27,7 @@ export class ViewTaskServiceService {
       //let data = JSON.stringify({ Task: Task });
       let data = ({ Task: Task,Priority:Priority,ParentTask:ParentTask,StartDate:StartDate,EndDate:EndDate });
 
-      return this.http.post('http://localhost:61296/api/TaskManger/ViewTasks', data, _options);
+      return this.http.post('http://localhost:1001/api/TaskManger/ViewTasks', data, _options);
 
 
 
@@ -39,7 +39,7 @@ export class ViewTaskServiceService {
 
     let data = ({ taskId: user.TaskId});
 
-    return this.http.post('http://localhost:61296/api/TaskManger/DeleteTask',data, _options);
+    return this.http.post('http://localhost:1001/api/TaskManger/DeleteTask',data, _options);
 
   }
 

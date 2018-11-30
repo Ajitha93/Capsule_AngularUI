@@ -9,12 +9,15 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTaskServiceService } from 'src/view-task-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { FilterPipe } from 'src/app/pipe/filter.pipe';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewTaskComponent,
     AddTaskComponent,
+    FilterPipe
     
   ],
   imports: [

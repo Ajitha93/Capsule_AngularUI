@@ -17,7 +17,7 @@ export class AddTaskService {
       // let data = JSON.stringify({ Task: Task });
       let data = ({ Task: Task,Priority:Priority,ParentTaskId:ParentTaskId,StartDate:StartDate,EndDate:EndDate,TaskId:TaskId,CreatedBy:CreatedBy,CreatedDate:CreatedDate });
 
-      return this.http.post('http://localhost:61296/api/TaskManger/AddTask', data, _options);
+      return this.http.post('http://localhost:1001/api/TaskManger/AddTask', data, _options);
   }
   GetTaskById(TaskId:number)
   {
@@ -25,11 +25,11 @@ export class AddTaskService {
     
     let data = ({ TaskId: TaskId });
 
-    return this.http.post('http://localhost:61296/api/TaskManger/GetTaskById', data, _options);
+    return this.http.post('http://localhost:1001/api/TaskManger/GetTaskById', data, _options);
   }
   GetParentTask(){    
     let _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };     
-    return this.http.get('http://localhost:61296/api/TaskManger/GetParentTaskDetails', _options);
+    return this.http.get('http://localhost:1001/api/TaskManger/GetParentTaskDetails', _options);
   }
 
 }

@@ -57,9 +57,8 @@ export class AddTaskComponent implements OnInit {
         this.CreatedBy=post.CreatedBy;
         this.CreatedDate=post.CreatedDate;
 
-        this.addTaskSvc.AddTask(this.Task,this.Priority,this.ParentTaskId,this.StartDate,this.EndDate,this.TaskId,this.CreatedBy,this.CreatedDate).subscribe(res => {          
-     
-        localStorage.removeItem('editTaskId');  
+        this.addTaskSvc.AddTask(this.Task,this.Priority,this.ParentTaskId,this.StartDate,this.EndDate,this.TaskId,this.CreatedBy,this.CreatedDate).subscribe(res => { 
+      
         this.route.navigate(['ViewTask']); 
         }, error => {
             console.log("Error Occured");

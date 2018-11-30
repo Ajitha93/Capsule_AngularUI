@@ -12,6 +12,7 @@ import { AddTaskComponent } from 'src/app/add-task/add-task.component';
 import { ViewTaskComponent } from 'src/app/view-task/view-task.component';
 import { ViewTaskServiceService } from 'src/view-task-service.service';
 import { AddTaskService } from 'src/add-task.service';
+import { FilterPipe } from 'src/app/pipe/filter.pipe';
 
 describe('AppComponent', () => {
 
@@ -85,7 +86,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent, 
         AddTaskComponent,
-        ViewTaskComponent
+        ViewTaskComponent,
+        FilterPipe
       ],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [HttpClientModule, RouterTestingModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule],

@@ -4,39 +4,39 @@
 
   <h2>ViewTasks</h2>
   <br />
-  <form [formGroup]="formGrp" (ngSubmit)="ViewTasks(formGrp.value)">  
+  <form  (ngSubmit)="ViewTasks(formGrp.value)">  
   <div id="searchTask">            
       <div>
           <div class="leftalign">
               <div>
                   <label>Task:</label>
-                  <input type="text" id="task" name="task" formControlName="Task" />
+                  <input type="text" id="task" name="task"  [(ngModel)]="Task" />
                   <div *ngIf="!formGrp.controls['Task'].valid && formGrp.controls['Task'].touched">
                     <span class="text-danger" *ngIf="formGrp.controls['Task'].errors.required">{{errormsg}}</span>                        
                 </div>
               </div>
               <div class="colsplit">
                   <label>Priority From:</label>
-                  <input type="text" id="priorFrom" name="priorFrom" formControlName="Priority"/>
+                  <input type="text" id="priorFrom" name="priorFrom"  [(ngModel)]="PriorityFrom"/>
                   <label>Priority To:</label>
-                  <input type="text" id="priorTo" name="priorTo" />
+                  <input type="text" id="priorTo" name="priorTo" [(ngModel)]="PriorityTo" />
               </div>
           </div>
           <div class="rightalign">
               <div>
                   <label>Parent Task:</label>
-                  <input type="text" id="parentTask" name="parentTask" formControlName="ParentTask" />
+                  <input type="text" id="parentTask" name="parentTask"  [(ngModel)]="ParentTask" />
               </div>
               <div>
                   <label>Start Date:</label>
-                  <input type="date" id="startDate" name="startDate" formControlName="StartDate"/>
+                  <input type="date" id="startDate" name="startDate"  [(ngModel)]="StartDate"/>
                   <label>End Date</label>
-                  <input type="date" id="endDate" name="endDate" formControlName="EndDate" />
+                  <input type="date" id="endDate" name="endDate"  [(ngModel)]="EndDate" />
               </div>
           </div>
       </div>    
       <div>
-          <input type="submit" value="Search" />
+          <!-- <input type="submit" value="Search" /> -->
       </div>
       <br />
   </div>
@@ -54,7 +54,7 @@
               <div class="col-sm-1"></div>
               <div class="col-sm-1"></div>             
           </div>         
-          <div class="row" *ngFor="let user of response">
+          <div class="row" *ngFor="let user of response | filter : { Task : Task, StartDate :StartDate, EndDate : EndDate, ParentTask : ParentTask, PriorityFrom : PriorityFrom, PriorityTo : PriorityTo} ">
               <div class="col-sm-2">{{user.Task}}</div>
               <div class="col-sm-2">{{user.ParentTask}}</div>
               <div class="col-sm-2">{{user.Priority}}</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Routes, RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TaskManagerUI';
+  route: Router;
+  constructor( route: Router) {
+     this.route = route;  
+  }
+  AddTask()
+{      
+    this.route.navigate(['AddTask']); 
+}
+void(id)
+{
+
+}
+ViewTask()
+{
+  this.route.navigate(['ViewTask']); 
+}
 }

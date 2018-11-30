@@ -5,7 +5,8 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 // import { Http, Response } from '@angular/http';
 import { ViewTaskServiceService } from 'src/view-task-service.service';
-//import {AddTaskComponent} from 'src/app/add-task/add-task.component'
+//import {AddTaskComponent} from 'src/app/add-task/add-task.component';
+import { FilterPipe } from 'src/app/pipe/filter.pipe';
 
 @Component({
   selector: 'app-view-task',
@@ -28,6 +29,8 @@ export class ViewTaskComponent implements OnInit {
   route: Router;
   response: any=null;
   errormsg:string="Required";
+  PriorityFrom:number;
+  PriorityTo:number;
   //@Input() EditTaskId:number;
 //   @Input() EditId:number;
 //@Output() EditId = new EventEmitter();
@@ -40,11 +43,11 @@ export class ViewTaskComponent implements OnInit {
   ViewTasks(post) 
   {
     // if (this.formGrp.valid) {
-        this.Task = post.Task;
-        this.Priority=post.Priority;
-        this.ParentTask=post.ParentTask;
-        this.StartDate=post.StartDate;
-        this.EndDate=post.EndDate;
+        // this.Task = post.Task;
+        // this.Priority=post.Priority;
+        // this.ParentTask=post.ParentTask;
+        // this.StartDate=post.StartDate;
+        // this.EndDate=post.EndDate;
         
         
         this.viewTaskSvc.ViewTask(this.Task,this.Priority,this.ParentTask,this.StartDate,this.EndDate).subscribe((res:Response) => {            
