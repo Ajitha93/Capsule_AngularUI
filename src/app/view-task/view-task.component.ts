@@ -7,7 +7,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ViewTaskServiceService } from 'src/view-task-service.service';
 //import {AddTaskComponent} from 'src/app/add-task/add-task.component';
 import { FilterPipe } from 'src/app/pipe/filter.pipe';
+import { AddProjectService } from 'src/app/add-project.service';
 
+declare var $: any;
 @Component({
   selector: 'app-view-task',
   templateUrl: './view-task.component.html',
@@ -24,6 +26,7 @@ export class ViewTaskComponent implements OnInit {
   ParentTask:string;
   StartDate:any;
   EndDate:any;  
+  ProjectId:number;
   formGrp: FormGroup;
   formControlName="name";
   route: Router;
@@ -31,16 +34,18 @@ export class ViewTaskComponent implements OnInit {
   errormsg:string="Required";
   PriorityFrom:number;
   PriorityTo:number;
+  projectDetails:any=null;
   //@Input() EditTaskId:number;
 //   @Input() EditId:number;
 //@Output() EditId = new EventEmitter();
 //   EditTaskId:number;
  
 
-  constructor(private formBuilder: FormBuilder, route: Router, private viewTaskSvc: ViewTaskServiceService,private http: HttpClient) { this.route = route;  
+  constructor(private formBuilder: FormBuilder, route: Router, private viewTaskSvc: ViewTaskServiceService,private http: HttpClient,
+    private addProjSvc: AddProjectService) { this.route = route;  
 }
 
-  ViewTasks(post) 
+  ViewTasks(ProjectId) 
   {
     // if (this.formGrp.valid) {
         // this.Task = post.Task;
@@ -48,9 +53,10 @@ export class ViewTaskComponent implements OnInit {
         // this.ParentTask=post.ParentTask;
         // this.StartDate=post.StartDate;
         // this.EndDate=post.EndDate;
+        this.ProjectId=ProjectId;
         
         
-        this.viewTaskSvc.ViewTask(this.Task,this.Priority,this.ParentTask,this.StartDate,this.EndDate).subscribe((res:Response) => {            
+        this.viewTaskSvc.ViewTask(this.ProjectId).subscribe((res:Response) => {            
           if (res != null) {
                     // this.response = res.json();
                     this.response = res;                    
@@ -65,7 +71,7 @@ export class ViewTaskComponent implements OnInit {
 DeleteTask(user)
 {   
         this.viewTaskSvc.DeleteTask(user).subscribe((res) => {  
-            this.viewTaskSvc.ViewTask(this.Task,this.Priority,this.ParentTask,this.StartDate,this.EndDate).subscribe((res:Response) => {            
+            this.viewTaskSvc.ViewTask(this.ProjectId).subscribe((res:Response) => {            
                 if (res != null) {             
                           this.response = res;                    
                       }
@@ -83,6 +89,46 @@ EditTask(user)
 {      
     this.route.navigate(['EditTask',user.TaskId]); 
 }
+SearchProject()
+  {
+    this.addProjSvc.ViewProject().subscribe((res:Response) => {            
+      if (res != null) {             
+                this.projectDetails = res;   
+                $("#projectModal").modal();                 
+            }
+    }, error => {
+        console.log("Error Occured");
+    });
+  }
+  SelectedProject(user)
+  {
+   this.formGrp = this.formBuilder.group({       
+    //  EmployeeId: this.formGrp.get('EmployeeId').value,    
+    //  Task: this.formGrp.get('Task').value,
+    //  ParentTaskId:this.formGrp.get('ParentTaskId').value,
+    //  StartDate: this.formGrp.get('StartDate').value,
+    //  EndDate:this.formGrp.get('EndDate').value,        
+     ProjectId :[user.Project_Id],
+    //  Priority: this.formGrp.get('Priority').value,     
+    //  TaskId:this.formGrp.get('TaskId').value,
+      Task: [null], 
+      Priority:[null],
+      ParentTask: [null],
+      StartDate: [null],
+      EndDate:[null],
+      
+ });  
+ this.viewTaskSvc.ViewTask(user.Project_Id).subscribe((res:Response) => {            
+    if (res != null) {             
+              this.response = res;                    
+          }
+  }, error => {
+      console.log("Error Occured");
+  });     
+ $("#projectid").val(user.Project_Id);
+ $("#projectModal").modal('hide');
+ 
+}  
 // SetEditId(Id) { // You can give any function name
     
 //     this.EditId.emit(Id);
@@ -94,15 +140,16 @@ EditTask(user)
       Priority:[null],
       ParentTask: [null],
       StartDate: [null],
-      EndDate:[null]
+      EndDate:[null],
+      ProjectId:[null]
   });
-  this.viewTaskSvc.ViewTask(this.Task,this.Priority,this.ParentTask,this.StartDate,this.EndDate).subscribe((res:Response) => {            
-    if (res != null) {             
-              this.response = res;                    
-          }
-  }, error => {
-      console.log("Error Occured");
-  });
+//   this.viewTaskSvc.ViewTask(this.ProjectId).subscribe((res:Response) => {            
+//     if (res != null) {             
+//               this.response = res;                    
+//           }
+//   }, error => {
+//       console.log("Error Occured");
+//   });
 
   }
 

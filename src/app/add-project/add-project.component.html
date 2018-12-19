@@ -1,0 +1,181 @@
+<div class="jumbotron">
+
+  <h2>{{ProjectLabel}} Project</h2>
+
+  <div>       
+      <form name="addProjectForm" [formGroup]="formGrp" (ngSubmit)="AddProject(formGrp.value)">
+          <input type="hidden" id="projectid" name="projectid" formControlName="ProjectId"  >
+          <div class="row">
+
+              <div class="col-25">
+
+                  <label for="title">Project:</label>
+
+              </div>               
+
+              <div class="col-75">
+
+                  <input type="text" id="projectname" name="projectname" formControlName="ProjectName"  required>
+                  <div *ngIf="!formGrp.controls['ProjectName'].valid && formGrp.controls['ProjectName'].touched">
+                      <span class="text-danger" *ngIf="formGrp.controls['ProjectName'].errors.required">{{errormsg}}</span>                        
+                  </div>
+
+              </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-35">
+
+                <label for="title"> <input type="checkbox" class="chckbox" id="chckbox" name="chckbox" (change)="handleChange($event)">Set Start and End Date</label>
+
+            </div>               
+
+            <div class="col-25">
+
+                <span class="alignleft" style="margin-left: -73px"><input type="date" name="startDate" id="startDate"  formControlName="StartDate" /></span>
+
+            </div>     
+            <div class="col-25" >
+
+               
+               
+                
+                <span class="alignleft" style="margin-left: 67px"><input type="date" id="endDate" name="endDate" formControlName="EndDate"></span>
+                   
+                
+
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-25">
+
+                <label for="note">Priority:</label>
+
+            </div>
+
+            <div class="col-75">
+                <input type="range"  min="0" max="30" class="form-control-range slider" style="margin-top: 22px;" id="priority" name="priority" formControlName="Priority" required>  
+                <div *ngIf="!formGrp.controls['Priority'].valid && formGrp.controls['Priority'].touched">
+                    <span class="text-danger" *ngIf="formGrp.controls['Priority'].errors.required">{{errormsg}}</span>                        
+                </div>  
+            </div>
+
+        </div>
+        <div class="row">
+
+          <div class="col-25">
+
+              <label for="title">Manger:</label>
+
+          </div>               
+
+          <div class="col-38">
+
+              <input type="text" id="employeeid" name="employeeid" formControlName="EmployeeId" >
+              <!-- <div *ngIf="!formGrp.controls['EmployeeId'].valid && formGrp.controls['EmployeeId'].touched">
+                  <span class="text-danger" *ngIf="formGrp.controls['EmployeeId'].errors.required">{{errormsg}}</span>                        
+              </div> -->
+
+          </div>
+          <div class="col-25">
+              <input type="button" class="projsearchbtn" value="Search" (click)="SearchUser()" >
+          </div>
+
+      </div>
+
+          <div class="row userbtn">
+
+              <input type="submit" value="Save" >
+
+              <input type="button" value="Reset" (click)="ResetProject()" >
+
+          </div>
+
+      </form>
+<hr class="viewTaskhr"/>
+<div style="clear: both;">
+<span class="alignleft" style="width: 100% !important;">
+<form  (ngSubmit)="GetProjects()">    
+            <div class="leftalign">
+                <div>                   
+                    <input type="text" style="width: 85% !important;" id="search" name="search" placeholder="Search" [(ngModel)]="ProjectName" />                    
+                </div>
+            </div>
+</form>
+</span>
+</div>
+<hr />
+<br/>
+<div>
+    <span class="aligleft" >Sort:</span>
+    <span style="margin-left: 30px;" ><button>StartDate</button></span>
+    <span style="margin-left: 30px;"><button>EndDate</button></span>
+    <span style="margin-left: 30px;"><button>Priority</button></span>   
+    <span style="margin-left: 30px;"><button>Completed</button></span>   
+</div>
+<hr class="viewrowTaskhr" />  
+<div id="viewUser" *ngIf="response?.length>0">
+    <div *ngFor="let user of response | filter : { ProjectName : ProjectName, Priority :Priority, EmployeeId : EmployeeId}">
+    <table rows="3" cols="4" style="width:100%; ">
+        <tbody >
+        <tr>
+         <td colspan="2">Project:{{user.Project_Name}}</td>
+         <td>Priority</td>
+         <td rowspan="1"><button style="width:95px" class="ViewTaskButton" (click)="EditProject(user)">Edit</button></td>         
+       </tr>
+        <tr>
+         <td style="width:30%">No of Tasks:{{user.NumberOfTasks}}</td>
+         <td style="width:30%">Completed:{{user.Status}} </td> 
+         <td rowspan="2">
+             <div class="progress progress-bar-vertical">
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="30" [style.height.%]="user.ProgressPercent">
+                    <span class="sr-only">{{user.Priority}}</span>
+                </div>
+            </div>
+            <div class="viewPriority bg-gray"></div>       
+       </td>         
+       </tr>       
+       <tr>
+            <td style="width:30%">Start Date:{{user.Start_Date | date: 'MM/dd/yyyy'}}</td>
+            <td style="width:30%">End Date:{{user.End_Date | date: 'MM/dd/yyyy'}}</td> 
+            <td rowspan="2"><button  class="ViewTaskButton" (click)="DeleteProject(user)">Suspend</button></td>           
+          </tr> 
+        </tbody>        
+    </table>
+    <hr class="viewrowTaskhr" />
+</div>    
+</div>
+ 
+
+</div>
+</div>
+
+ 
+<div class="modal fade" id="managerModal"  role="dialog">
+    <div class="modal-dialog">
+        
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Manager List</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="searchManager" [(ngModel)]="EmployeeId" name="radioMgrSearch">
+            </div> 
+
+            <div class="modal-body" *ngFor="let manager of managerDetails| filter : { EmployeeId : EmployeeId}" >
+                <label class="modContainer">{{manager.Employee_Id}}
+                    <input type="radio" name="radio"  [value]="manager.Employee_Id" (click)="SelectedManger(manager)"/>
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"  data-dismiss="modal" >OK</button>
+            </div>
+        </div>
+    </div>
+</div>

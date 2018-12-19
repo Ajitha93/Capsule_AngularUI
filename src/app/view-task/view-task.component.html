@@ -4,43 +4,21 @@
 
   <h2>ViewTasks</h2>
   <br />
-  <form  (ngSubmit)="ViewTasks(formGrp.value)">  
-  <div id="searchTask">            
-      <div>
-          <div class="leftalign">
-              <div>
-                  <label>Task:</label>
-                  <input type="text" id="task" name="task"  [(ngModel)]="Task" />
-                  <div *ngIf="!formGrp.controls['Task'].valid && formGrp.controls['Task'].touched">
-                    <span class="text-danger" *ngIf="formGrp.controls['Task'].errors.required">{{errormsg}}</span>                        
-                </div>
-              </div>
-              <div class="colsplit">
-                  <label>Priority From:</label>
-                  <input type="text" id="priorFrom" name="priorFrom"  [(ngModel)]="PriorityFrom"/>
-                  <label>Priority To:</label>
-                  <input type="text" id="priorTo" name="priorTo" [(ngModel)]="PriorityTo" />
-              </div>
-          </div>
-          <div class="rightalign">
-              <div>
-                  <label>Parent Task:</label>
-                  <input type="text" id="parentTask" name="parentTask"  [(ngModel)]="ParentTask" />
-              </div>
-              <div>
-                  <label>Start Date:</label>
-                  <input type="date" id="startDate" name="startDate"  [(ngModel)]="StartDate"/>
-                  <label>End Date</label>
-                  <input type="date" id="endDate" name="endDate"  [(ngModel)]="EndDate" />
-              </div>
-          </div>
-      </div>    
-      <div>
-          <!-- <input type="submit" value="Search" /> -->
-      </div>
-      <br />
-  </div>
-</form>
+  <div style="clear: both;">
+        <span class="alignleft">
+       
+                                <span><input type="text" id="projectid" name="projectid"  disabled > </span>  
+       
+        </span>
+        <span class="alignright" style="margin-top: -54px;" >
+        <span style="margin-right: 47px;"><input type="button" style="padding-left:20px;padding-right:30px;" class="projsearchbtn" value="Search" (click)="SearchProject()" ></span>
+        <span style="margin-right: 10px;">Sort Task By:</span>
+        <span style="margin-right: 10px;"><button>Start Date</button></span>
+        <span style="margin-right: 10px;"><button>End Date</button></span>
+        <span style="margin-right: 10px;"><button>Priority</button></span>
+        <span style="margin-right: 10px;"><button>Completed</button></span>
+        </span>
+      
   <br />
   <hr class="viewTaskhr" />
   <div id="viewTask" *ngIf="response?.length>0">
@@ -60,7 +38,7 @@
               <div class="col-sm-2">{{user.Priority}}</div>
               <div class="col-sm-2">{{user.StartDate | date: 'MM/dd/yyyy'}}</div>
               <div class="col-sm-2">{{user.EndDate | date: 'MM/dd/yyyy'}}</div>
-              <div class="col-sm-1" *ngIf="user.IsActive==true"><button class="ViewTaskButton" (click)="EditTask(user)">Edit</button></div>
+              <div class="col-sm-1" ><button class="ViewTaskButton" (click)="EditTask(user)">Edit</button></div>
               <div class="col-sm-1" *ngIf="user.IsActive==true"><button class="ViewTaskButton" (click)="DeleteTask(user)">End</button></div>
           </div>          
       </div>
@@ -69,3 +47,29 @@
   <div id="viewTask" *ngIf="response?.length==0"><span>No data found!!</span></div>
 </div>
 
+
+
+<div class="modal fade" id="projectModal"  role="dialog">
+    <div class="modal-dialog">
+        
+        <div class="modal-content" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Parent Task List</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="searchManager" [(ngModel)]="ProjectId" name="radioMgrSearch">
+            </div> 
+
+            <div class="modal-body" *ngFor="let manager of projectDetails| filter : { ProjectId : ProjectId}" >
+                <label class="modContainer">{{manager.Project_Name}}
+                    <input type="radio" name="radio"  [value]="manager.Project_Id" (click)="SelectedProject(manager)"/>
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"  data-dismiss="modal" >OK</button>
+            </div>
+        </div>
+    </div>
+</div>

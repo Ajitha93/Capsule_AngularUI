@@ -1,0 +1,137 @@
+<div class="jumbotron">
+
+  <h2>{{UserLabel}} User</h2>
+
+  <div>       
+      <form name="addUserForm" [formGroup]="formGrp" (ngSubmit)="AddUser(formGrp.value)">
+          <input type="hidden" id="userid" name="userid" formControlName="UserId"  >
+          <div class="row">
+
+              <div class="col-25">
+
+                  <label for="title">First Name:</label>
+
+              </div>               
+
+              <div class="col-75">
+
+                  <input type="text" id="firstname" name="firstname" formControlName="FirstName"  required>
+                  <div *ngIf="!formGrp.controls['FirstName'].valid && formGrp.controls['FirstName'].touched">
+                      <span class="text-danger" *ngIf="formGrp.controls['FirstName'].errors.required">{{errormsg}}</span>                        
+                  </div>
+
+              </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-25">
+
+                <label for="title">Last Name:</label>
+
+            </div>               
+
+            <div class="col-75">
+
+                <input type="text" id="lastname" name="lastname" formControlName="LastName"  required>
+                <div *ngIf="!formGrp.controls['LastName'].valid && formGrp.controls['LastName'].touched">
+                    <span class="text-danger" *ngIf="formGrp.controls['LastName'].errors.required">{{errormsg}}</span>                        
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-25">
+
+              <label for="title">Employee ID:</label>
+
+          </div>               
+
+          <div class="col-35">
+
+              <input type="text" id="employeeid" name="employeeid" formControlName="EmployeeId"   required>
+              <div *ngIf="!formGrp.controls['EmployeeId'].valid && formGrp.controls['EmployeeId'].touched">
+                  <span class="text-danger" *ngIf="formGrp.controls['EmployeeId'].errors.required">{{errormsg}}</span>                        
+              </div>
+
+          </div>
+
+      </div>
+
+          <div class="row userbtn">
+
+              <input type="submit" value="Save" >
+
+              <input type="button" value="Reset" (click)="ResetUser()" >
+
+          </div>
+
+      </form>
+<hr class="viewTaskhr"/>
+<div style="clear: both;">
+<span class="alignleft">
+<form  (ngSubmit)="GetUsers()">    
+            <div class="leftalign">
+                <div>                   
+                    <input type="text" id="search" name="search" placeholder="Search" [(ngModel)]="FirstName" />                    
+                </div>
+            </div>
+</form>
+</span>
+<span class="alignright" >
+<span style="margin-right: 30px;">Sort:</span>
+<span style="margin-right: 28px;"><button>FirstName</button></span>
+<span style="margin-right: 27px;"><button>LastName</button></span>
+<span style="margin-right: 26px;"><button>Id</button></span>
+</span>
+</div>
+<hr class="viewrowTaskhr" />  
+
+<div id="viewUser" *ngIf="response?.length>0">
+    <div *ngFor="let user of response |  filter : { FirstName : FirstName, LastName :LastName, EmployeeId : EmployeeId}">
+    <table rows="3" cols="2" style="width:100%; ">
+        <tbody >
+        <tr>
+         <td style="width:90%">{{user.First_Name}}</td>
+         <td><button class="ViewTaskButton" style="padding-right: 28px;" (click)="EditUser(user)">Edit</button></td>                
+       </tr>
+        <tr>
+            <td style="width:90%">{{user.Last_Name}}</td>
+            <td><button class="ViewTaskButton" (click)="DeleteUser(user)">Delete</button></td>
+       </tr>       
+       <tr>
+            <td style="width:30%">{{user.Employee_Id}}</td>
+            <td style="width:30%"></td>                      
+          </tr> 
+        </tbody>        
+    </table>
+    <hr class="viewrowTaskhr" />
+</div>    
+</div>
+
+
+<!-- <div id="viewUser" *ngIf="response?.length>0">
+    <div class="viewuserrows">              
+        <div class="row" *ngFor="let user of response | filter : { FirstName : FirstName, LastName :LastName, EmployeeId : EmployeeId}">
+           
+            <div style="clear: both;">
+                <p class="alignleft">{{user.First_Name}}</p>
+                <p class="alignright"><button class="ViewTaskButton" (click)="EditUser(user)">Edit</button></p>
+            </div>
+            <div style="clear: both;">
+                <p class="alignleft">{{user.Last_Name}}</p>
+                <p class="alignright"><button class="ViewTaskButton" (click)="DeleteUser(user)">Delete</button></p>
+            </div>
+            <div style="clear: both;">
+                    <p class="alignleft">{{user.Employee_Id}}</p>
+            </div>  
+        </div>          
+    </div>
+    <hr class="viewrowTaskhr" />     
+</div> -->
+</div>
+</div>

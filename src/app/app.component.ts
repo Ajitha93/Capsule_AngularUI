@@ -24,4 +24,12 @@ ViewTask()
 {
   this.route.navigate(['ViewTask']); 
 }
+AddUser()
+{      
+    this.route.navigate(['AddUser']); 
+}
+AddProject()
+{
+  this.route.navigate(['AddProject']);
+}
 }

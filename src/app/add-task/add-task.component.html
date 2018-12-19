@@ -8,6 +8,27 @@
             <div class="row">
 
                 <div class="col-25">
+      
+                    <label for="title">Project:</label>
+      
+                </div>               
+      
+                <div class="col-38">
+      
+                    <input type="text" id="projectid" name="projectid" formControlName="ProjectId" readonly="readonly" >
+                    <!-- <div *ngIf="!formGrp.controls['EmployeeId'].valid && formGrp.controls['EmployeeId'].touched">
+                        <span class="text-danger" *ngIf="formGrp.controls['EmployeeId'].errors.required">{{errormsg}}</span>                        
+                    </div> -->
+      
+                </div>
+                <div class="col-25">
+                    <input type="button" class="projsearchbtn" value="Search" (click)="SearchProject()" >
+                </div>
+      
+            </div>
+            <div class="row">
+
+                <div class="col-25">
 
                     <label for="title">Task:</label>
 
@@ -23,6 +44,19 @@
                 </div>
 
             </div>
+            <div class="row">
+
+                <div class="col-25">
+
+                    
+
+                </div>               
+
+                <div class="col-75">
+                    <input type="checkbox" id="chckbox" name="chckbox" style="height: 26px;width: 42px;"  (change)="handleChange($event)" > Parent Task                   
+                </div>
+
+            </div>
 
             <div class="row">
 
@@ -33,54 +67,49 @@
                 </div>
 
                 <div class="col-75">
-                    <input type="range" min="0" max="30" class="slider" id="priority" name="priority" formControlName="Priority" required>  
-                    <div *ngIf="!formGrp.controls['Priority'].valid && formGrp.controls['Priority'].touched">
+                    <input type="range" min="0" max="30" class="slider" style="margin-top: 22px;" id="priority" name="priority" formControlName="Priority" required>  
+                    <!-- <div *ngIf="!formGrp.controls['Priority'].valid && formGrp.controls['Priority'].touched">
                         <span class="text-danger" *ngIf="formGrp.controls['Priority'].errors.required">{{errormsg}}</span>                        
-                    </div>  
+                    </div>   -->
                 </div>
 
             </div>
 
             <div class="row">
-
-                <div class="col-25">
-
-                    <label for="cal">Parent Task:</label>
-
-                </div>
-
-                <div class="col-75">
-
-                    <select class="form-control" id="AddParentTask" name="parentTask" formControlName="ParentTaskId">  
-                        <option selected="--Select Task--" value="" class="ng-binding">--Select Task--</option>  
-                        <option [ngValue]="parentTask.ParentTaskId" *ngFor="let parentTask of parentTaskList">  
-                            {{parentTask.ParentTask}}  
-                        </option>  
-                        </select>
-                    <!-- <input type="text" id="parentTask" name="parentTask" formControlName="ParentTaskId"  required> -->
-                     <div *ngIf="!formGrp.controls['ParentTaskId'].valid && formGrp.controls['ParentTaskId'].touched">
-                        <span class="text-danger" *ngIf="formGrp.controls['ParentTaskId'].errors.required">{{errormsg}}</span>                        
-                    </div> 
-
-                  
-                </div>
+                    <div class="col-25">
+      
+                            <label for="title">Parent Task:</label>
+              
+                        </div>               
+              
+                        <div class="col-38">
+              
+                            <input type="text" id="parentTask" name="parentTask" formControlName="ParentTaskId" readonly="readonly" >
+                            <!-- <div *ngIf="!formGrp.controls['EmployeeId'].valid && formGrp.controls['EmployeeId'].touched">
+                                <span class="text-danger" *ngIf="formGrp.controls['EmployeeId'].errors.required">{{errormsg}}</span>                        
+                            </div> -->
+              
+                        </div>
+                        <div class="col-25">
+                            <input type="button" class="projsearchbtn" value="Search" (click)="SearchParentTask()" >
+                        </div>              
 
             </div>
 
-            <div class="row">
+            <div class="row" >
 
-                <div class="col-25">
+                    <div class="col-25">
 
-                    <label for="category">Start Date:</label>
-
-                </div>
+                            <label for="category">Start Date:</label>
+        
+                        </div>
 
                 <div class="col-75">
 
-                    <input type="date" id="startDate" name="startDate"  formControlName="StartDate" required>
-                    <div *ngIf="!formGrp.controls['StartDate'].valid && formGrp.controls['StartDate'].touched">
+                    <input type="date" id="startDate" name="startDate"  formControlName="StartDate" >
+                    <!-- <div *ngIf="!formGrp.controls['StartDate'].valid && formGrp.controls['StartDate'].touched">
                         <span class="text-danger" *ngIf="formGrp.controls['StartDate'].errors.required">{{errormsg}}</span>                        
-                    </div> 
+                    </div>  -->
 
                 </div>
 
@@ -95,17 +124,38 @@
 
                 <div class="col-75">
 
-                    <input type="date" id="endDate" name="endDate" formControlName="EndDate" required>
-                    <div *ngIf="!formGrp.controls['EndDate'].valid && formGrp.controls['EndDate'].touched">
+                    <input type="date" id="endDate" name="endDate" formControlName="EndDate" >
+                    <!-- <div *ngIf="!formGrp.controls['EndDate'].valid && formGrp.controls['EndDate'].touched">
                         <span class="text-danger" *ngIf="formGrp.controls['EndDate'].errors.required">{{errormsg}}</span>                        
-                    </div> 
+                    </div>  -->
 
                 </div>
 
             </div>
+            <div class="row">
 
-            <input type="hidden" id="createdby" name="createdby" formControlName="CreatedBy"  >
-            <input type="hidden" id="createddate" name="createddate" formControlName="CreatedDate"  >
+                <div class="col-25">
+      
+                    <label for="title">Manger:</label>
+      
+                </div>               
+      
+                <div class="col-38">
+      
+                    <input type="text" id="employeeid" name="employeeid" formControlName="EmployeeId" readonly="readonly">
+                    <!-- <div *ngIf="!formGrp.controls['EmployeeId'].valid && formGrp.controls['EmployeeId'].touched">
+                        <span class="text-danger" *ngIf="formGrp.controls['EmployeeId'].errors.required">{{errormsg}}</span>                        
+                    </div> -->
+      
+                </div>
+                <div class="col-25">
+                    <input type="button" class="projsearchbtn" value="Search" (click)="SearchUser()" >
+                </div>
+      
+            </div>
+
+            <!-- <input type="hidden" id="createdby" name="createdby" formControlName="CreatedBy"  >
+            <input type="hidden" id="createddate" name="createddate" formControlName="CreatedDate"  > -->
 
             <div class="row">
 
@@ -122,3 +172,81 @@
    
 
 </div>
+
+<div class="modal fade" id="managerModal"  role="dialog">
+        <div class="modal-dialog">
+            
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Manager List</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="searchManager" [(ngModel)]="EmployeeId" name="radioMgrSearch">
+                </div> 
+    
+                <div class="modal-body" *ngFor="let manager of managerDetails| filter : { EmployeeId : EmployeeId}" >
+                    <label class="modContainer">{{manager.Employee_Id}}
+                        <input type="radio" name="radio"  [value]="manager.Employee_Id" (click)="SelectedManger(manager)"/>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"  data-dismiss="modal" >OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="modal fade" id="parentModal"  role="dialog">
+            <div class="modal-dialog">
+                
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Parent Task List</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="searchManager" [(ngModel)]="ParentTaskId" name="radioMgrSearch">
+                    </div> 
+        
+                    <div class="modal-body" *ngFor="let manager of parentTasks| filter : { ParentTaskId : ParentTaskId}" >
+                        <label class="modContainer">{{manager.ParentTask}}
+                            <input type="radio" name="radio"  [value]="manager.Employee_Id" (click)="SelectedParent(manager)"/>
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"  data-dismiss="modal" >OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="projectModal"  role="dialog">
+                <div class="modal-dialog">
+                    
+                    <div class="modal-content" >
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Parent Task List</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" class="form-control" id="searchManager" [(ngModel)]="ProjectId" name="radioMgrSearch">
+                        </div> 
+            
+                        <div class="modal-body" *ngFor="let manager of projectDetails| filter : { ProjectId : ProjectId}" >
+                            <label class="modContainer">{{manager.Project_Name}}
+                                <input type="radio" name="radio"  [value]="manager.Employee_Id" (click)="SelectedProject(manager)"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"  data-dismiss="modal" >OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        

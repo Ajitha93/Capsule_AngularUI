@@ -13,7 +13,7 @@ export class ViewTaskServiceService {
   constructor(private http: HttpClient) { }
  
 
-  ViewTask(Task: string,Priority:number,ParentTask:string,StartDate:any,EndDate:any) {
+  ViewTask(ProjectId:number) {
 
       //let headers = new Headers();
 
@@ -25,7 +25,7 @@ export class ViewTaskServiceService {
      
 
       //let data = JSON.stringify({ Task: Task });
-      let data = ({ Task: Task,Priority:Priority,ParentTask:ParentTask,StartDate:StartDate,EndDate:EndDate });
+      let data = ({ ProjectId:ProjectId });
 
       return this.http.post('http://localhost:1001/api/TaskManger/ViewTasks', data, _options);
 

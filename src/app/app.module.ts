@@ -10,6 +10,9 @@ import { ViewTaskServiceService } from 'src/view-task-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FilterPipe } from 'src/app/pipe/filter.pipe';
+import { AddUserComponent } from './add-user/add-user.component';
+import { FilterUserPipe } from 'src/app/pipe/filteruser.pipe';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { FilterPipe } from 'src/app/pipe/filter.pipe';
     AppComponent,
     ViewTaskComponent,
     AddTaskComponent,
-    FilterPipe
+    FilterPipe,
+    AddUserComponent,
+    FilterUserPipe,
+    AddProjectComponent
     
   ],
   imports: [
